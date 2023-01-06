@@ -1,0 +1,93 @@
+﻿@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@using Syncfusion.Blazor.DropDowns
+
+<div style="padding-left:20px">
+<SfDropDownList TValue="string" TItem="Cultures" DataSource="@CultureList" Width="143px" Index="@cultureIndex" PopupWidth="143px" CssClass="localization-combo">
+        <DropDownListEvents TItem="Cultures" TValue="string" ValueChange="OnSelected"></DropDownListEvents>
+        <DropDownListFieldSettings Value="Code" Text="Text"></DropDownListFieldSettings>
+    </SfDropDownList>
+</div>
+<style>
+    .localization-combo {
+        border-radius: 4px;
+        border-color: #B3B3B3;
+        font-family: OpenSans-Regular;
+        font-size: 12px;
+        background-color: #FFFFFF;
+        border-width: 1px;
+        color: #333333;
+    }
+</style>
+
+
+@code {
+    private int cultureIndex { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        switch (System.Globalization.CultureInfo.CurrentCulture.Name)
+        {
+            case "en-US":
+                this.cultureIndex = 0;
+                break;
+            case "de":
+                this.cultureIndex = 1;
+                break;
+            case "fr":
+                this.cultureIndex = 2;
+                break;
+            case "ar":
+                this.cultureIndex = 3;
+                break;
+            case "zh":
+                this.cultureIndex = 4;
+                break;
+        }
+        
+    }
+
+    private void OnSelected(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string,Cultures> e)
+    {
+        var culture = (string)e.Value;
+        var uri = new Uri(NavigationManager.Uri)
+            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
+            $"redirectUri={Uri.EscapeDataString(uri)}";
+       switch (culture)
+       {
+        case "en-US":
+         this.cultureIndex = 0;
+         break;
+        case "de":
+         this.cultureIndex = 1;
+         break;
+        case "fr":
+         this.cultureIndex = 2;
+         break;
+        case "ar":
+         this.cultureIndex = 3;
+         break;
+        case "zh":
+         this.cultureIndex = 4;
+         break;
+       }
+         NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+	public class Cultures
+    {
+        public string Text { get; set; } = string.Empty;
+
+        public string Code { get; set; } = string.Empty;
+    }
+
+    List<Cultures> CultureList = new List<Cultures>
+   {
+        new Cultures() { Text = "English (en-US)", Code = "en-US" },
+        new Cultures() { Text = "German (de)", Code = "de" },
+        new Cultures() { Text = "French (fr)", Code = "fr" },
+        new Cultures() { Text = "Arabic (ar)", Code = "ar" },
+        new Cultures() { Text = "Chinese (zh)", Code = "zh" },
+    };
+}

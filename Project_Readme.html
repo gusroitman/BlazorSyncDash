@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Syncfusion Blazor application</title>
+     <style>
+        body {
+            background: #fff;
+            color: #505050;
+            font: 14px 'Segoe UI', tahoma, arial, helvetica, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        #header {
+            background: #2B367F;
+            color: #fff;
+            padding: 0;
+        }
+
+        h1 {
+            font-weight: normal;
+			font-family: Segoe UI;
+            margin: 0;
+            padding: 0 30px;
+			padding-top: 10px; 
+            line-height: 80px;
+        }
+		h2{
+		font-size: 18px;
+			font-family: Segoe UI;
+			text-transform: none;
+			border-bottom: 1px solid silver;
+			padding-bottom: 12px;
+		}
+        p {
+            font-size: 16px;
+			font-weight: 600;
+            color: #121212;
+            background: #ffffff;
+			font-family: Segoe UI;
+            padding: 0px 30px;
+			padding-top: 20px;
+            line-height: 50px;
+        }
+
+        .main {
+            padding: 5px 30px;
+			display: contents
+        }
+
+        .section {
+            width: 15%;
+            float: left;
+            margin: 0 0 0 4%;
+        }
+
+            .section h2 {
+                font-size: 18px;
+                margin: 0;
+				font-family: Segoe UI;
+			text-transform: none;
+                border-bottom: 1px solid silver;
+                padding-bottom: 12px;
+                margin-bottom: 8px;
+            }
+			
+			.section.first h2 {
+                font-size: 18px;
+			    font-family: Segoe UI;
+				font-weight:700;
+                margin: 0;
+				border-style:none;
+				color: #121212;
+            }
+
+            .section.first {
+                margin-left: 0px;
+                width: 35%;
+            }
+
+                .section.first li {
+			font-size: 14px;
+			font-family: Segoe UI;
+			font-weight: 400;
+			width: auto;
+			text-transform: none;
+			padding: 4px 0;
+			color: #121212;
+			line-height:20px;
+		}
+		
+		.section.first ul li
+		{
+		color:#AAAAAA;
+		}
+		.section.first ul li span
+		{
+		color:#121212;
+		}
+		
+		.section.first ul
+		{
+            margin: 0;
+			padding-left:17px;
+		}
+
+            .section.last {
+                margin-right: 0;
+            }
+
+        .section ul {
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .section li {
+            font-size: 14px;
+			font-family: Segoe UI;
+			font-weight: 400;
+			width: auto;
+			text-transform: none;
+			padding: 4px 0;
+			color: #267CB9;
+			line-height:20px;
+        }
+
+        a {
+            color: #267cb2;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="header">
+        <h1>Syncfusion Blazor Server App</h1>
+        <p>Syncfusion Blazor Server application created successfully</p>
+    </div>
+
+    <div class="main">
+        <div class="section first">
+            <h2>This application configured with:</h2>
+            <ul>
+                <li><span>Application theming using <a href="https://blazor.syncfusion.com/documentation/appearance/theme-studio?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension&#syncfusion-blazor-bootstrap-5-theme" target="_blank">Bootstrap v5</a></span></li>
+				<li><span>Localization support enabled</span></li>
+				<li><span>Syncfusion NuGet packages are installed from <a href="https://www.nuget.org/profiles/SyncfusionInc" target="_blank">nuget.org</a></span></li>
+				<li><span>Selected components sample navigation link on the index page</span></li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Learning</h2>
+            <ul style="list-style:none">
+			    <li><a href="https://www.syncfusion.com/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Blazor Components</a></li>
+                <li><a href="https://blazor.syncfusion.com/demos/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Demos</a></li>
+			    <li><a href="https://blazor.syncfusion.com/documentation/introduction/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Documentation</a> </li>
+			    <li><a href="https://blazor.syncfusion.com/documentation/release-notes/index/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Release History</a></li>
+				<li><a href="https://www.syncfusion.com/products/whatsnew/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">What's new</a></li>
+				<li><a href="https://www.syncfusion.com/products/roadmap/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Road Map</a></li>
+            </ul>
+        </div>
+		<div class="section">
+            <h2>Resources</h2>
+            <ul style="list-style:none">
+			    <li><a href="https://www.syncfusion.com/kb/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Knowledge Base</a></li>
+                <li><a href="https://www.syncfusion.com/faq/blazor/general/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">FAQ</a> </li>
+                <li><a href="https://www.syncfusion.com/tutorial-videos/blazor/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Tutorial Videos</a> </li>
+			    <li><a href="https://www.syncfusion.com/succinctly-free-ebooks/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Ebooks</a></li>
+				<li><a href="https://www.syncfusion.com/blogs/category/blazor/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Blog</a> </li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Support</h2>
+            <ul style="list-style:none">
+                <li><a href="https://www.syncfusion.com/support/directtrac/incidents/newincident/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Contact Support</a></li>
+				<li><a href="https://www.syncfusion.com/feedback/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Features & Bugs</a> </li>
+                <li><a href="https://www.syncfusion.com/forums/blazor-components/?utm_medium=listing&utm_source=vs_extensions&utm_campaign=blazor-extension" target="_blank">Community Forum</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
