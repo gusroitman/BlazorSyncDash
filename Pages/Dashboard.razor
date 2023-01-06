@@ -8,7 +8,7 @@
 
 
 <h5>Dashboard Layout Example 1 - Classic 3 rows.</h5>
-<h6>First row 4 columns, second row 2 columns, third row 1 full-width column</h6>
+<h6>First row 4 columns, second row 2 columns, third row 1 full-width column. Also on this page examples of Charts and Datagrid.</h6>
 <br/>
 <div class="control-section">
 	<SfDashboardLayout @ref="dashboardObject" Columns="8" CellSpacing="@Spacing" CellAspectRatio="@Ratio" AllowDragging="false" AllowResizing="false" AllowFloating="false" MediaQuery="max-width:700px">
@@ -162,8 +162,6 @@
 
 @code {
     SfDashboardLayout? dashboardObject;
-
-
 
     private Theme Theme { get; set; }
     private double[] Spacing = new double[] { 15, 15 };
