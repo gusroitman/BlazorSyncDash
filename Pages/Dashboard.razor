@@ -1,4 +1,4 @@
-﻿@page "/dashboardlayout-features"
+﻿@page "/dashboard"
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Layouts
 @using Syncfusion.Blazor.Buttons
@@ -73,7 +73,7 @@
 					</div>
 				</ContentTemplate>
 			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="1" SizeX="4" SizeY="2">
+			<DashboardLayoutPanel Column="0" Row="1" SizeX="4" SizeY="3">
 				<HeaderTemplate>
 					<span class="title">Income - Expense</span>
 				</HeaderTemplate>
@@ -99,7 +99,7 @@
 					</SfChart>
 				</ContentTemplate>
 			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="4" Row="1" SizeX="4" SizeY="2">
+			<DashboardLayoutPanel Column="4" Row="1" SizeX="4" SizeY="3">
 				<HeaderTemplate>
 					<span class="title">Total Expenses</span>
 				</HeaderTemplate>
@@ -167,7 +167,7 @@
 
     private Theme Theme { get; set; }
     private double[] Spacing = new double[] { 15, 15 };
-	private double Ratio = 160 / 100;
+	private double Ratio = 200 / 100;
 	private List<TransactionData> TransactData = new List<TransactionData> {
 	new TransactionData { Category = "Food", Amount = 6, PaymentMode = "Debit Card", IconCss = "food", IsExpense = true, IsIncome = false, TransactoinId = "#131614678", Description = "Palmetto Cheese, Mint julep" },
 	new TransactionData { Category = "Transportation", Amount = 7, PaymentMode = "Debit Card", IconCss = "travel", IsExpense = true, IsIncome = false, TransactoinId = "#131416876", Description = "Other vehicle expenses" },
