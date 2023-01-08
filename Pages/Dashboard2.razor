@@ -1,104 +1,108 @@
 ﻿@page "/dashboard2"
 @using Syncfusion.Blazor
+@using Syncfusion.Blazor.Cards
 @using Syncfusion.Blazor.Layouts
 @using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Lists
 @using Syncfusion.Blazor.Charts
 @using Syncfusion.Blazor.Grids
 @inject NavigationManager NavigationManager
 
-<h5>Dashboard Layout Example 1 - Classic 3 rows.</h5>
-<h6>First row 4 columns, second row 2 columns, third row 1 full-width column. Also on this page examples of Charts and Datagrid.</h6>
+<h5>Dashboard Layout Example 1 - Mixed rows different heights and widths.</h5>
+<h6>First row 2 columns with different heights, second row mix of widths and heights. Also in this page examples of Chart, Datagrid, Listview and Cards</h6>
 <br/>
 <div class="control-section">
 	<SfDashboardLayout @ref="dashboardObject" Columns="8" CellSpacing="@Spacing" CellAspectRatio="@Ratio" AllowDragging="false" AllowResizing="false" AllowFloating="false" MediaQuery="max-width:700px">
 		<DashboardLayoutPanels>
-			<DashboardLayoutPanel Column="0" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container income">
-							<p>$43,300</p>
-							<div class="auto-left">
-								<span class="income-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Income</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="2" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container expense">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="expense-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Expenses</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="4" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container balance">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="balance-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Balance</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="6" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container transaction">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="transaction-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Transactions</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="1" SizeX="4" SizeY="3">
+			<DashboardLayoutPanel Column="0" Row="0" SizeX="6" SizeY="2">
 				<HeaderTemplate>
-					<span class="title">Income - Expense</span>
+					<span class="title">Recent Transactions</span>
 				</HeaderTemplate>
 				<ContentTemplate>
-					<SfChart Height="100%" Width="100%" Theme="@Theme">
-						<ChartArea><ChartAreaBorder Width="0"></ChartAreaBorder></ChartArea>
-						<ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory" LabelFormat="MMM" IntervalType="IntervalType.Months" EdgeLabelPlacement="EdgeLabelPlacement.Shift">
-							<ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
-						</ChartPrimaryXAxis>
-						<ChartPrimaryYAxis LabelFormat="${value}" Minimum="1000" Maximum="9000" Interval="2000">
-							<ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
-							<ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
-						</ChartPrimaryYAxis>
-						<ChartTooltipSettings Enable="true"></ChartTooltipSettings>
-						<ChartSeriesCollection>
-							<ChartSeries DataSource="@IncomeExpenseData" Name="Income" XName="Period" Width="2"
-										 Opacity="0.5" YName="Income" Type="ChartSeriesType.SplineArea" Fill="#00BCD7">
-							</ChartSeries>
-							<ChartSeries DataSource="@IncomeExpenseData" Name="Expense" XName="Period" Width="2"
-										 Opacity="0.5" YName="Expense" Type="ChartSeriesType.SplineArea" Fill="#CDDE1F">
-							</ChartSeries>
-						</ChartSeriesCollection>
-					</SfChart>
+					<SfGrid TValue="TransactionData" DataSource="@TransactData" Width="100%" Height="100%" AllowSorting="true" EnableHover="false" AllowPaging="false">
+						<GridColumns>
+							<GridColumn Field="@nameof(TransactionData.TransactoinId)" HeaderText="Transaction ID" Width="120"  TextAlign="@TextAlign.Center"></GridColumn>
+							<GridColumn Field="@nameof(TransactionData.Category)" HeaderText="Category" Width="120">
+								<Template>
+									@{
+										var expense = (context as TransactionData);
+																		 	<div class="normalRes">
+																			  	<div class="category-icon @expense.IconCss"></div>
+																			  	<div class='category-text'>@expense.Category</div>
+																		 	</div>
+									}
+								</Template>
+							</GridColumn>
+							<GridColumn Field="@nameof(TransactionData.PaymentMode)" HeaderText="Payment Mode" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
+							<GridColumn Field="@nameof(TransactionData.Description)" HeaderText="Description" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
+							<GridColumn Field="@nameof(TransactionData.Amount)" HeaderText="Amount" Width="120" TextAlign="@TextAlign.Center">
+								<Template>
+									@{
+										var expense = (context as TransactionData);
+																		 	<div class="normalRes">
+																			  	<div class='amt-payment @(expense.IsExpense ? "expense-payment" : "income-payment")'>
+																				<span>$</span><span>@expense.Amount</span>
+																			  	</div>
+																		 	</div>
+									}
+								</Template>
+							</GridColumn>
+						</GridColumns>
+					</SfGrid>
 				</ContentTemplate>
 			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="4" Row="1" SizeX="4" SizeY="3">
+			<DashboardLayoutPanel Column="6" Row="0" SizeX="2" SizeY="5">
+				<ContentTemplate>
+					<div class="root-container">
+						<SfListView DataSource="@DataSource" ShowHeader="true" CssClass="e-list-template groupedList" HeaderTitle="Settings">
+						<ListViewFieldSettings TValue="DataModel" Id="Id" Text="Name" GroupBy="Category"></ListViewFieldSettings>
+						<ListViewTemplates TValue="DataModel">
+						<Template>
+						@{
+																<div class="settings e-list-wrapper e-list-multi-line e-list-avatar">
+																	<span class="icon e-avatar @context.Class"></span>
+																	<span class="e-list-item-header">@context.Name</span>
+																	<span class="e-list-content">@context.Content</span>
+																</div>
+						}
+						</Template>
+						<GroupTemplate>
+							<div class="e-list-wrapper">
+							<span class="e-list-item-content">@context.Text</span>
+							</div>
+						</GroupTemplate>
+						</ListViewTemplates>
+						</SfListView>
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="4" Row="2" SizeX="2" SizeY="2">
+				<ContentTemplate>
+					<div class="root-container" style="overflow:auto;">
+						<SfCard ID="FirstCard" style="width:100%;height:100%;margin:auto;">
+							<CardImage Image="/images/gus1.jpg" />
+							<CardHeader Title="Gustavo Roitman" SubTitle=".NET Developer" />
+							<CardContent Content="Blazor's frontend examples with different components libraries." />
+							<CardFooter>
+								<CardFooterContent>
+									<SfButton CssClass="e-btn e-outline e-primary">Follow me</SfButton>
+								</CardFooterContent>
+							</CardFooter>
+						</SfCard>
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="4" Row="4" SizeX="2" SizeY="1">
+				<ContentTemplate>
+					<div class="root-container" style="overflow:auto;">
+						<SfCard ID="SecondCard" style="width:100%;height:100%;margin:auto;">
+							<CardContent Content="Blazor's frontend examples with different components libraries." />
+							<CardHeader Title="Gustavo Roitman" SubTitle=".NET Developer" ImageUrl="/images/gus1.jpg" />
+						</SfCard>
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="0" Row="2" SizeX="4" SizeY="3">
 				<HeaderTemplate>
 					<span class="title">Total Expenses</span>
 				</HeaderTemplate>
@@ -117,43 +121,6 @@
 					</SfAccumulationChart>
 				</ContentTemplate>
 			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="4" SizeX="8" SizeY="3">
-				<HeaderTemplate>
-					<span class="title">Recent Transactions</span>
-				</HeaderTemplate>
-				<ContentTemplate>
-					<SfGrid TValue="TransactionData" DataSource="@TransactData" Width="100%" Height="100%" AllowSorting="true" EnableHover="false" AllowPaging="false">
-						<GridColumns>
-							<GridColumn Field="@nameof(TransactionData.TransactoinId)" HeaderText="Transaction ID" Width="120"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Category)" HeaderText="Category" Width="120">
-								<Template>
-									@{
-										var expense = (context as TransactionData);
-		 								<div class="normalRes">
-		  									<div class="category-icon @expense.IconCss"></div>
-		  									<div class='category-text'>@expense.Category</div>
-		 								</div>
-									}
-								</Template>
-							</GridColumn>
-							<GridColumn Field="@nameof(TransactionData.PaymentMode)" HeaderText="Payment Mode" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Description)" HeaderText="Description" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Amount)" HeaderText="Amount" Width="120" TextAlign="@TextAlign.Center">
-								<Template>
-									@{
-										var expense = (context as TransactionData);
-		 								<div class="normalRes">
-		  									<div class='amt-payment @(expense.IsExpense ? "expense-payment" : "income-payment")'>
-											<span>$</span><span>@expense.Amount</span>
-		  									</div>
-		 								</div>
-									}
-								</Template>
-							</GridColumn>
-						</GridColumns>
-					</SfGrid>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
 		</DashboardLayoutPanels>
 	</SfDashboardLayout>
 </div>
@@ -166,11 +133,9 @@
     private double[] Spacing = new double[] { 15, 15 };
 	private double Ratio = 200 / 100;
 	private List<TransactionData> TransactData = new List<TransactionData> {
-	new TransactionData { Category = "Food", Amount = 6, PaymentMode = "Debit Card", IconCss = "food", IsExpense = true, IsIncome = false, TransactoinId = "#131614678", Description = "Palmetto Cheese, Mint julep" },
 	new TransactionData { Category = "Transportation", Amount = 7, PaymentMode = "Debit Card", IconCss = "travel", IsExpense = true, IsIncome = false, TransactoinId = "#131416876", Description = "Other vehicle expenses" },
 	new TransactionData { Category = "Housing", Amount = 20, PaymentMode = "Credit Card", IconCss = "housing", IsExpense = true, IsIncome = false, TransactoinId = "#1711148579", Description = "Laundry and cleaning supplies" },
-	new TransactionData { Category = "Extra Income", Amount = 110, PaymentMode = "Cash", IconCss = "extra-income", IsExpense = false, IsIncome = true, TransactoinId = "#1922419785", Description = "Income from Sale" },
-	new TransactionData { Category = "Food", Amount = 10, PaymentMode = "Credit Card", IconCss = "food", IsExpense = true, IsIncome = false, TransactoinId = "#2744145880", Description = "Muffuletta sandwich, Mint julep" }
+	new TransactionData { Category = "Extra Income", Amount = 110, PaymentMode = "Cash", IconCss = "extra-income", IsExpense = false, IsIncome = true, TransactoinId = "#1922419785", Description = "Income from Sale" }
 	};
 	private List<RenderingData> PieRenderingData = new List<RenderingData>
 	{
@@ -185,15 +150,6 @@
 	new RenderingData { X = "Clothing", Text="5.92%", Y = 2255 },
 	new RenderingData { X = "Others", Text="12.73%", Y = 4844 }
 	};
-	private List<IncomeExpense> IncomeExpenseData = new List<IncomeExpense>
-	{
-	new IncomeExpense { Period = new DateTime(2021, 01, 01), Income = 7490, Expense = 6973 },
-	new IncomeExpense { Period = new DateTime(2021, 02, 01), Income = 6840, Expense = 6060 },
-	new IncomeExpense { Period = new DateTime(2021, 03, 01), Income = 6060, Expense = 5500 },
-	new IncomeExpense { Period = new DateTime(2012, 04, 01), Income = 8190, Expense = 7059 },
-	new IncomeExpense { Period = new DateTime(2021, 05, 01), Income = 7320, Expense = 6333 },
-	new IncomeExpense { Period = new DateTime(2021, 06, 01), Income = 7380, Expense = 6135 }
-	};
 	private string[] palettes = new string[] { "#61EFCD", "#CDDE1F", "#FEC200", "#CA765A", "#2485FA", "#F57D7D", "#C152D2",
 	"#8854D9", "#3D4EB8", "#00BCD7","#4472c4", "#ed7d31", "#ffc000", "#70ad47", "#5b9bd5", "#c1c1c1", "#6f6fe2", "#e269ae", "#9e480e", "#997300" };
 	protected override void OnInitialized()
@@ -207,12 +163,6 @@
 		public string Text { get; set; }
 		public string Fill { get; set; }
 	}
-	private class IncomeExpense
-	{
-		public DateTime Period { get; set; }
-		public int Income { get; set; }
-		public int Expense { get; set; }
-	}
 	private class TransactionData
 	{
 		public string Category { get; set; }
@@ -223,6 +173,29 @@
 		public bool IsIncome { get; set; }
 		public bool IsExpense { get; set; }
 		public int Amount { get; set; }
+	}
+	List<DataModel> DataSource = new List<DataModel>()
+	{
+		new DataModel { Name= "WI-FI", Content = "Disabled", Id = "1", Class = "wifi", Category = "Wireless & networks", Order = 0 },
+		new DataModel { Name= "Bluetooth", Content = "Disabled", Id = "2", Class = "bluetooth", Category = "Wireless & networks", Order = 0 },
+		new DataModel { Name= "SIM cards", Id = "3", Content = "AT&T", Class = "sim", Category = "Wireless & networks", Order = 0 },
+		new DataModel { Name= "Display", Content = "Adaptive brightness is OFF", Id = "4", Class = "display", Category = "Device", Order = 1 },
+		new DataModel { Name= "Sound", Content = "Ringer volume at 50%", Id = "5", Class = "sound", Category = "Device", Order = 1 },
+		new DataModel { Name= "Battery", Content = "85%", Id = "5", Class = "battery", Category = "Device", Order = 1 },
+		new DataModel { Name= "Users", Content = "Signed in as Albert", Id = "6", Class = "user", Category = "Device", Order = 1 },
+		new DataModel { Name= "Location", Content = "ON / High accuracy", Id = "7", Class = "location", Category = "Personal", Order = 2 },
+		new DataModel { Name= "Security", Id = "8", Content = "Screen Lock", Class = "security", Category = "Personal", Order = 2 },
+		new DataModel { Name= "Languages & input", Content = "English (US)", Id = "9", Class = "language", Category = "Personal", Order = 2 }
+	};
+	// Specifies the model class for ListView datasource.
+	class DataModel
+	{
+		public string Name { get; set; }
+		public string Content { get; set; }
+		public string Id { get; set; }
+		public string Class { get; set; }
+		public string Category { get; set; }
+		public int Order { get; set; }
 	}
 }
 <style>
@@ -404,4 +377,178 @@
 	.e-gridheader {
 		padding-right: 0px !important;
 	}
+</style>
+<style>
+    /* ListView sample level customization */
+    .groupedList.e-listview {
+        display: block;
+		padding = 5px;
+        width: 100%;
+        margin: auto;
+        border: 1px solid;
+        line-height: initial;
+        border-color: rgba(0, 0, 0, 0.12);
+    }
+    /* ListView border color customization */
+    .highcontrast .groupedList.e-listview {
+        border-color: #969696;
+    }
+    .tailwind-dark .groupedList.e-listview,
+    .bootstrap5-dark .groupedList.e-listview,
+    .material-dark .groupedList.e-listview,
+    .bootstrap-dark .groupedList.e-listview,
+    .fabric-dark .groupedList.e-listview {
+        border-color: #fff;
+    }
+    /* ListView template customization */
+    .groupedList.e-listview .e-list-header {
+        color: #fff;
+        height: 57px;
+        background-color: #56697f;
+        padding-left: 15px;
+        position: sticky;
+        top: -1px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    .groupedList.e-listview .e-list-header .e-text {
+            font-size: 18px;
+        }
+    .groupedList.e-listview .e-list-item {
+        cursor: pointer;
+    }
+    .groupedList.e-listview .e-content {
+        height: 450px;
+        overflow-y: scroll;
+    }
+    .groupedList.e-listview .e-list-group-item {
+        color: #837c7c;
+        padding: 0;
+        height: inherit;
+    }
+    .groupedList.e-listview .e-hover {
+        transition: 0.5s;
+    }
+    @@font-face {
+        font-family: 'e-icons';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    /* Dark theme related customization*/
+    .bootstrap5-dark .groupedList.e-listview .icon,
+    .bootstrap-dark .groupedList.e-listview .icon,
+    .highcontrast .groupedList.e-listview .icon,
+    .fabric-dark .groupedList.e-listview .icon,
+    .bootstrap5-dark .groupedList.e-listview .e-focused .icon,
+    .tailwind-dark .groupedList.e-listview .e-focused .icon,
+    .tailwind-dark .groupedList.e-listview .e-hover .icon,
+    .highcontrast .groupedList.e-listview .e-focused .icon,
+    .bootstrap5 .groupedList.e-listview .e-focused .icon {
+        color: #fff;
+    }
+    .bootstrap4 .groupedList.e-listview .e-focused .icon {
+        color: #212529;
+    }
+    /* Template icons related customization */
+    .groupedList.e-listview .icon {
+        background: transparent;
+        font-family: 'e-icons';
+        color: #6c757d;
+    }
+    .groupedList.e-listview .wifi:before {
+        content: "\e700";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .bluetooth:before {
+        content: "\e702";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .sim:before {
+        content: "\e705";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .display:before {
+        content: "\e704";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .sound:before {
+        content: "\e703";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .battery:before {
+        content: "\e711";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .user:before {
+        content: "\e707";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .location:before {
+        content: "\e708";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .security:before {
+        content: "\e709";
+        font-size: 25px;
+    }
+    .groupedList.e-listview .language:before {
+        content: "\e710";
+        font-size: 25px;
+    }
+    /* Highcontrast theme related customization */
+    .highcontrast .groupedList.e-listview .e-list-header {
+        color: #ffd939;
+        background-color: #333333;
+    }
+    .material-dark .e-list-item .e-list-avatar.e-list-multi-line .e-list-item-header {
+        color: #ffffff;
+    }
+    .material-dark .e-list-item .e-list-avatar.e-list-multi-line .e-list-content,
+    .bootstrap-dark .e-list-item .e-list-avatar.e-list-multi-line .e-list-content {
+        color: rgba(255,255,255,0.7);
+    }
+</style>
+<style>
+    .e-card .e-card-header .e-card-header-caption .e-card-header-title {
+        font-family: Helvetica-Bold;
+        color: #007BFF;
+        font-weight: bold;
+        font-size: 14px;
+		height: 100%;
+		width: 100%;
+		overflow:auto;
+    }
+    .e-card .e-card-header .e-card-header-image {
+        height: 35px;
+        width: 35px;
+    }
+    .highcontrast .e-card .e-card-header .e-card-header-image {
+        border-color: transparent;
+    }
+    .e-card .e-card-header .e-card-header-caption .e-card-sub-title {
+        padding-top: 0px;
+        font-family: Helvetica;
+        color: #878787;
+        font-size: 10px;
+    }
+    .e-card-header-image {
+        height: 35px;
+        width: 35px;
+    }
+    .e-card {
+        margin: 4px;
+    }
+    .e-card-content {
+        font-family: Helvetica, 'Segoe UI'
+    }
+    #FirstCard {
+        text-align: center
+    }
+        #FirstCard > .e-card-image {
+            margin: auto;
+            margin-top: 20px;
+            width: 50px;
+            height: 50px;
+            min-height: 50px;
+        }
 </style>
