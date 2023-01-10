@@ -180,16 +180,18 @@
 
 @code
 {
-#if NETCOREAPP3_1 || NETSTANDARD2_1
+    #if NETCOREAPP3_1 || NETSTANDARD2_1
     SfSidebar Sidebar; 
 #else
     SfSidebar? Sidebar; 
 #endif
-	public bool SidebarToggle = false; 
-	public bool SidebarToggleFixed = false; 
-	public void ToggleNavMenu() 
+    public bool SidebarToggle = true; 
+    public bool SidebarToggleFixed = true; 
+    public void ToggleNavMenu() 
     { 
-		SidebarToggle = !SidebarToggle; 
-		SidebarToggleFixed = !SidebarToggleFixed; 
-	} 
+        SidebarToggle = !SidebarToggle; 
+        SidebarToggleFixed = !SidebarToggleFixed;
+        StateHasChanged();
+    } 
+
 }
