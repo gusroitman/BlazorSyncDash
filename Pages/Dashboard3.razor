@@ -1,404 +1,484 @@
 ﻿@page "/dashboard3"
-@using Syncfusion.Blazor
-@using Syncfusion.Blazor.Layouts
+
+@using Syncfusion.Blazor.Diagram
+@using System.Collections.ObjectModel
+@using Syncfusion.Blazor.CircularGauge
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Calendars
+
+@using Syncfusion.Blazor.Cards
 @using Syncfusion.Blazor.Buttons
-@using Syncfusion.Blazor.Charts
-@using Syncfusion.Blazor.Grids
-@inject NavigationManager NavigationManager
+@namespace Dashboard3
+@* Add a Namespace for a syncfusion control used in Diagrm HTML node *@
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Maps
+@* Initialize Diagram with node template *@
 
-<h5>Dashboard Layout Example 1 - Classic 3 rows.</h5>
-<h6>First row 4 columns, second row 2 columns, third row 1 full-width column. Also on this page examples of Charts and Datagrid.</h6>
-<br/>
-<div class="control-section">
-	<SfDashboardLayout @ref="dashboardObject" Columns="8" CellSpacing="@Spacing" CellAspectRatio="@Ratio" AllowDragging="false" AllowResizing="false" AllowFloating="false" MediaQuery="max-width:700px">
-		<DashboardLayoutPanels>
-			<DashboardLayoutPanel Column="0" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container income">
-							<p>$43,300</p>
-							<div class="auto-left">
-								<span class="income-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Income</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="2" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container expense">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="expense-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Expenses</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="4" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container balance">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="balance-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Balance</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="6" Row="0" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container">
-						<div class="item-container transaction">
-							<p>$38,060</p>
-							<div class="auto-left">
-								<span class="transaction-icon e-icon"></span>
-							</div>
-						</div>
-						<div class="bottom-container">
-							<p>Transactions</p>
-						</div>
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="1" SizeX="4" SizeY="3">
-				<HeaderTemplate>
-					<span class="title">Income - Expense</span>
-				</HeaderTemplate>
-				<ContentTemplate>
-					<SfChart Height="100%" Width="100%" Theme="@Theme">
-						<ChartArea><ChartAreaBorder Width="0"></ChartAreaBorder></ChartArea>
-						<ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory" LabelFormat="MMM" IntervalType="IntervalType.Months" EdgeLabelPlacement="EdgeLabelPlacement.Shift">
-							<ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
-						</ChartPrimaryXAxis>
-						<ChartPrimaryYAxis LabelFormat="${value}" Minimum="1000" Maximum="9000" Interval="2000">
-							<ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
-							<ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
-						</ChartPrimaryYAxis>
-						<ChartTooltipSettings Enable="true"></ChartTooltipSettings>
-						<ChartSeriesCollection>
-							<ChartSeries DataSource="@IncomeExpenseData" Name="Income" XName="Period" Width="2"
-										 Opacity="0.5" YName="Income" Type="ChartSeriesType.SplineArea" Fill="#00BCD7">
-							</ChartSeries>
-							<ChartSeries DataSource="@IncomeExpenseData" Name="Expense" XName="Period" Width="2"
-										 Opacity="0.5" YName="Expense" Type="ChartSeriesType.SplineArea" Fill="#CDDE1F">
-							</ChartSeries>
-						</ChartSeriesCollection>
-					</SfChart>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="4" Row="1" SizeX="4" SizeY="3">
-				<HeaderTemplate>
-					<span class="title">Total Expenses</span>
-				</HeaderTemplate>
-				<ContentTemplate>
-					<SfAccumulationChart Height="100%" Width="100%" EnableAnimation="false" EnableSmartLabels="true" Theme="@Theme">
-						<AccumulationChartSeriesCollection>
-							<AccumulationChartSeries DataSource="@PieRenderingData" XName="Text" YName="Y" Radius="83%" StartAngle="0" EndAngle="360" InnerRadius="50%" Palettes="@palettes">
-								<AccumulationDataLabelSettings Visible="true" Name="X" Position="AccumulationLabelPosition.Outside">
-									<AccumulationChartConnector Length="10%"></AccumulationChartConnector>
-									<AccumulationChartDataLabelFont Size="14px" FontFamily="Roboto"></AccumulationChartDataLabelFont>
-								</AccumulationDataLabelSettings>
-							</AccumulationChartSeries>
-						</AccumulationChartSeriesCollection>
-						<AccumulationChartTooltipSettings Enable="true"></AccumulationChartTooltipSettings>
-						<AccumulationChartLegendSettings Visible="false"></AccumulationChartLegendSettings>
-					</SfAccumulationChart>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="4" SizeX="8" SizeY="3">
-				<HeaderTemplate>
-					<span class="title">Recent Transactions</span>
-				</HeaderTemplate>
-				<ContentTemplate>
-					<SfGrid TValue="TransactionData" DataSource="@TransactData" Width="100%" Height="100%" AllowSorting="true" EnableHover="false" AllowPaging="false">
-						<GridColumns>
-							<GridColumn Field="@nameof(TransactionData.TransactoinId)" HeaderText="Transaction ID" Width="120"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Category)" HeaderText="Category" Width="120">
-								<Template>
-									@{
-										var expense = (context as TransactionData);
-											 <div class="normalRes">
-												  <div class="category-icon @expense.IconCss"></div>
-												  <div class='category-text'>@expense.Category</div>
-											 </div>
-									}
-								</Template>
-							</GridColumn>
-							<GridColumn Field="@nameof(TransactionData.PaymentMode)" HeaderText="Payment Mode" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Description)" HeaderText="Description" Width="160"  TextAlign="@TextAlign.Center"></GridColumn>
-							<GridColumn Field="@nameof(TransactionData.Amount)" HeaderText="Amount" Width="120" TextAlign="@TextAlign.Center">
-								<Template>
-									@{
-										var expense = (context as TransactionData);
-											 <div class="normalRes">
-												  <div class='amt-payment @(expense.IsExpense ? "expense-payment" : "income-payment")'>
-												<span>$</span><span>@expense.Amount</span>
-												  </div>
-											 </div>
-									}
-								</Template>
-							</GridColumn>
-						</GridColumns>
-					</SfGrid>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-		</DashboardLayoutPanels>
-	</SfDashboardLayout>
-</div>
+<SfDiagramComponent Height="100%" Nodes="@nodes" Connectors="@Connectors" Width="100%">
 
+    <SnapSettings Constraints="SnapConstraints.None"></SnapSettings>
+    <PageSettings Height="1500" 
+                  Width="1200" 
+                  MultiplePage="true" 
+                  Orientation="@orientation" 
+                  BoundaryConstraints="@boundaryConstraints" 
+                  ShowPageBreaks="true">
+        <BackgroundStyle Background="lightblue"/>
+        <PageMargin Left="10" Top="10" Bottom="10"/>        
+    </PageSettings>
+    <Layout Type="LayoutType.ComplexHierarchicalTree" @bind-HorizontalSpacing="@HorizontalSpacing" @bind-VerticalSpacing="@VerticalSpacing">
+    </Layout>
+    <DiagramTemplates>
+        <NodeTemplate>
+            @{
+                if ((context as Syncfusion.Blazor.Diagram.Node).ID == "node4")
+                {
+                    <SfCircularGauge Width="400px" Height="400px">
+                        <CircularGaugeAxes>
+                            <CircularGaugeAxis StartAngle="210" EndAngle="150" Minimum="0" Maximum="120" Radius="80%">
+                                <CircularGaugeAxisLineStyle Width="10" Color="transparent">
+                                </CircularGaugeAxisLineStyle>
+                                <CircularGaugeAxisLabelStyle UseRangeColor="false">
+                                    <CircularGaugeAxisLabelFont Size="12px" FontFamily="Roboto" FontStyle="Regular">
+                                    </CircularGaugeAxisLabelFont>
+                                </CircularGaugeAxisLabelStyle>
+                                <CircularGaugeAxisMajorTicks Height="10" Offset="5" UseRangeColor="false">
+                                </CircularGaugeAxisMajorTicks>
+                                <CircularGaugeAxisMinorTicks Height="0" Width="0" UseRangeColor="false">
+                                </CircularGaugeAxisMinorTicks>
+                                <CircularGaugeAnnotations>
+                                    <CircularGaugeAnnotation Radius="30%" Angle="0" ZIndex="1" Content="Speedometer">
+                                        <ContentTemplate>
+                                            <div><span style="font-size:14px; color:#9E9E9E; font-family:Regular; margin-left: -33px">Speedometer</span></div>
+                                        </ContentTemplate>
+                                    </CircularGaugeAnnotation>
+                                    <CircularGaugeAnnotation Radius="40%" Angle="180" ZIndex="1" Content="65 MPH">
+                                        <ContentTemplate>
+                                            <div><span style="font-size:20px; color:#424242; font-family:Regular; margin-left: -33px">65 MPH</span></div>
+                                        </ContentTemplate>
+                                    </CircularGaugeAnnotation>
+                                </CircularGaugeAnnotations>
+                                <CircularGaugeRanges>
+                                    <CircularGaugeRange Start="0" End="40" Color="#30B32D" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                    <CircularGaugeRange Start="40" End="80" Color="#FFDD00" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                    <CircularGaugeRange Start="80" End="120" Color="#F03E3E" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                </CircularGaugeRanges>
+                                <CircularGaugePointers>
+                                    <CircularGaugePointer Value="65" Radius="60%" PointerWidth="8">
+                                        <CircularGaugePointerAnimation Enable="true"></CircularGaugePointerAnimation>
+                                        <CircularGaugeCap Radius="7">
+                                        </CircularGaugeCap>
+                                        <CircularGaugeNeedleTail Length="18%">
+                                        </CircularGaugeNeedleTail>
+                                    </CircularGaugePointer>
+                                </CircularGaugePointers>
+                            </CircularGaugeAxis>
+                        </CircularGaugeAxes>
+                    </SfCircularGauge>
+                }
+                if ((context as Syncfusion.Blazor.Diagram.Node).ID == "node2")
+                {
+                    <div class="calender-section">
+                        <div id="calender-control">
+                            <SfCalendar TValue="DateTime?" @bind-Value="@DropVal"></SfCalendar>
+                        </div>
+                        <div id="display_date">
+                            <span id="date_value">Selected values: @(DropVal?.ToString("M/d/yyyy"))</span>
+                        </div>
+                    </div>
+                }
+                if ((context as Syncfusion.Blazor.Diagram.Node).ID == "node3")
+                { <div class="control_wrapper">
+                        <SfTreeView TValue="TreeItem">
+                            <TreeViewFieldsSettings DataSource="@TreeDataSource" Id="NodeId" Text="NodeText" Expanded="Expanded" Child="@("Child")"></TreeViewFieldsSettings>
+                        </SfTreeView>
+                    </div>
+                }
+                    if ((context as Syncfusion.Blazor.Diagram.Node).ID == "node5")
+                {
+                    <div class="control-section">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <SfCard ID="BasicCard">
+                                    <CardHeader Title="Debunking Five Data Science Myths" />
+                                    <CardContent Content="Tech evangelists are currently pounding their pulpits about all things AI, machine learning, analytics—anything that sounds" />
+                                    <CardFooter>
+                                        <CardFooterContent>
+                                            <SfButton CssClass="e-btn e-outline e-primary">Read More</SfButton>
+                                        </CardFooterContent>
+                                    </CardFooter>
+                                </SfCard>
+                                <SfCard ID="NewIconCard">
+                                    <div class="newIcon">NEW</div>
+                                    <CardHeader Title="Debunking Five Data Science Myths" />
+                                    <CardContent Content="Tech evangelists are currently pounding their pulpits about all things AI, machine learning, analytics—anything that sounds" />
+                                </SfCard>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <SfCard ID="SideCard">
+                                    <CardImage Image="images/cards/basic.png" />
+                                    <CardHeader Title="Debunking Five Data Science Myths" />
+                                    <CardContent Content="Tech evangelists are currently pounding their pulpits about all things AI, machine learning, analytics—anything that sounds" />
+                                    <CardFooter>
+                                        <CardFooterContent>
+                                            <SfButton CssClass="e-btn e-outline e-primary">Read More</SfButton>
+                                        </CardFooterContent>
+                                    </CardFooter>
+                                </SfCard>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </NodeTemplate>
+    </DiagramTemplates>
+</SfDiagramComponent>
 
-@code {
-	SfDashboardLayout? dashboardObject;
-
-	private Theme Theme { get; set; }
-	private double[] Spacing = new double[] { 15, 15 };
-	private double Ratio = 200 / 100;
-	private List<TransactionData> TransactData = new List<TransactionData> {
-	new TransactionData { Category = "Food", Amount = 6, PaymentMode = "Debit Card", IconCss = "food", IsExpense = true, IsIncome = false, TransactoinId = "#131614678", Description = "Palmetto Cheese, Mint julep" },
-	new TransactionData { Category = "Transportation", Amount = 7, PaymentMode = "Debit Card", IconCss = "travel", IsExpense = true, IsIncome = false, TransactoinId = "#131416876", Description = "Other vehicle expenses" },
-	new TransactionData { Category = "Housing", Amount = 20, PaymentMode = "Credit Card", IconCss = "housing", IsExpense = true, IsIncome = false, TransactoinId = "#1711148579", Description = "Laundry and cleaning supplies" },
-	new TransactionData { Category = "Extra Income", Amount = 110, PaymentMode = "Cash", IconCss = "extra-income", IsExpense = false, IsIncome = true, TransactoinId = "#1922419785", Description = "Income from Sale" },
-	new TransactionData { Category = "Food", Amount = 10, PaymentMode = "Credit Card", IconCss = "food", IsExpense = true, IsIncome = false, TransactoinId = "#2744145880", Description = "Muffuletta sandwich, Mint julep" }
-	};
-	private List<RenderingData> PieRenderingData = new List<RenderingData>
-	{
-	new RenderingData { X = "Mortgage / Rent", Text="15.76%", Y = 6000 },
-	new RenderingData { X = "Food", Text="12.79%", Y = 4866 },
-	new RenderingData { X = "Utilities", Text="10.93%", Y = 4160 },
-	new RenderingData { X = "Bills", Text="10.4%", Y = 3960 },
-	new RenderingData { X = "Shopping", Text="8.87%", Y = 3375 },
-	new RenderingData { X = "Transportation", Text="8.49%", Y = 3230 },
-	new RenderingData { X = "Insurance", Text="7.59%", Y = 2890 },
-	new RenderingData { X = "Health Care", Text="6.52%", Y = 2480 },
-	new RenderingData { X = "Clothing", Text="5.92%", Y = 2255 },
-	new RenderingData { X = "Others", Text="12.73%", Y = 4844 }
-	};
-	private List<IncomeExpense> IncomeExpenseData = new List<IncomeExpense>
-	{
-	new IncomeExpense { Period = new DateTime(2021, 01, 01), Income = 7490, Expense = 6973 },
-	new IncomeExpense { Period = new DateTime(2021, 02, 01), Income = 6840, Expense = 6060 },
-	new IncomeExpense { Period = new DateTime(2021, 03, 01), Income = 6060, Expense = 5500 },
-	new IncomeExpense { Period = new DateTime(2012, 04, 01), Income = 8190, Expense = 7059 },
-	new IncomeExpense { Period = new DateTime(2021, 05, 01), Income = 7320, Expense = 6333 },
-	new IncomeExpense { Period = new DateTime(2021, 06, 01), Income = 7380, Expense = 6135 }
-	};
-	private string[] palettes = new string[] { "#61EFCD", "#CDDE1F", "#FEC200", "#CA765A", "#2485FA", "#F57D7D", "#C152D2",
-	"#8854D9", "#3D4EB8", "#00BCD7","#4472c4", "#ed7d31", "#ffc000", "#70ad47", "#5b9bd5", "#c1c1c1", "#6f6fe2", "#e269ae", "#9e480e", "#997300" };
-	protected override void OnInitialized()
-	{
-		//Theme = ThemeHelper.GetCurrentTheme(NavigationManager.Uri);
-	}
-	private class RenderingData
-	{
-		public string? X { get; set; }
-		public int Y { get; set; }
-		public string? Text { get; set; }
-		public string? Fill { get; set; }
-	}
-	private class IncomeExpense
-	{
-		public DateTime Period { get; set; }
-		public int Income { get; set; }
-		public int Expense { get; set; }
-	}
-	private class TransactionData
-	{
-		public string? Category { get; set; }
-		public string? Description { get; set; }
-		public string? PaymentMode { get; set; }
-		public string? IconCss { get; set; }
-		public string? TransactoinId { get; set; }
-		public bool IsIncome { get; set; }
-		public bool IsExpense { get; set; }
-		public int Amount { get; set; }
-	}
-}
 <style>
-	.e-dashboardlayout {
-		padding: 10px;
-	}
-	.e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header {
-		line-height: 40px;
-		height: 40px;
-	}
-	.fluent .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.fluent-dark .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header{
-		height: 56px;
-	}
-	.bootstrap5 .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.bootstrap5-dark .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.tailwind .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.fluent .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.fluent-dark .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header,
-	.tailwind-dark .e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-header{
-		line-height: inherit;
-	}
-	.root-container {
-		height: 100%;
-	}
-	.title {
-		font-size: 16px;
-		font-weight: 400;
-	}
-	.category-text {
-		float: left;
-		line-height: 30px;
-	}
-	.category-icon {
-		float: left;
-		background-repeat: no-repeat;
-		background-position-x: center;
-		background-size: 100%;
-		height: 30px;
-		width: 30px;
-		display: inline-block;
-		margin-right: 10px;
-	}
-		.category-icon.food {
-			background-image: url("/images/food.png");
-		}
-		.category-icon.travel {
-			background-image: url("/images/transport.png");
-		}
-		.category-icon.housing {
-			background-image: url("/images/house.png");
-		}
-		.category-icon.extra-income {
-			background-image: url("/images/extra.png");
-		}
-	.item-container {
-		display: flex;
-		text-align: center;
-		height: 70%;
-		padding: 2rem;
-		font-size: 22px;
-		font-weight: 400;
-	}
-		.item-container.income {
-			color: #17a00e
-		}
-		.item-container.balance {
-			color: #008cff;
-		}
-		.item-container.transaction {
-			color: #f41127;
-		}
-		.item-container.expense {
-			color: #ca765a;
-		}
-	.bottom-container {
-		text-align: center;
-		font-weight: 400;
-		font-size: 16px;
-	}
-    .mobile .bottom-container {
-        font-size: 30px;
+    #BasicCard, #NewIconCard {
+        height: 180px;
+        margin: 16px;
     }
-	.material .bottom-container,
-	.fabric .bottom-container,
-	.bootstrap .bottom-container,
-	.bootstrap4 .bottom-container,
-	.tailwind .bottom-container,
-	.bootstrap5 .bottom-container{
-		color: #4c5258;
+
+    #SideCard {
+        height: 376px;
+        margin: 16px;
     }
-	.amt-payment.expense-payment {
-		font-weight: bold;
-		color: #ff5e65;
-	}
-	.amt-payment.income-payment {
-		font-weight: bold;
-		color: #04cd93;
-	}
-	.auto-left {
-		margin-left: auto;
-	}
-	.e-panel-cotent {
-		padding: 1rem;
-	}
-	@@font-face {
-		font-family: 'e-sb-icons';
-		src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format("truetype");
-		font-weight: normal;
-		font-style: normal;
-	}
-	.balance:after {
-		content: "\e900";
-		font-size: 24px;
-		font-family: "e-sb-icons";
-	}
-	.expense:after {
-		content: "\e901";
-		font-size: 24px;
-		font-family: "e-sb-icons";
-	}
-	.income:after {
-		content: "\e902";
-		font-size: 24px;
-		font-family: "e-sb-icons";
-	}
-	.transaction:after {
-		content: "\e903";
-		font-size: 24px;
-		font-family: "e-sb-icons";
-	}
-	.e-headercelldiv span.e-headertext {
-		font-size: 14px;
-		font-weight: 500;
-	}
-	.e-grid .e-rowcell {
-		font-size: 13px;
-	}
-    .mobile .e-control.e-lib.e-dashboardlayout.e-responsive {
-        z-index: 0;
-        overflow: scroll;
+
+    .e-card > .e-card-image {
+        background-repeat: no-repeat;
+        min-height: 205px;
     }
-    .mobile .item-container {
-        padding: 40px;
-        font-size: 40px;
+
+    .newIcon {
+        background: #2CC000;
+        border-radius: 12px;
+        border-radius: 12px;
+        font-family: HelveticaNeue-Medium, 'Segoe UI';
+        font-weight: 500;
+        color: #ffffff;
+        margin-left: 16px;
+        font-size: 14px;
+        width: 58px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 0.4px;
     }
-    .mobile .balance:after {
-        content: "\e900";
-        font-size: 40px;
-        font-family: "e-sb-icons";
+
+    .row {
+        width: 80%;
+        margin: auto;
     }
-    .mobile .expense:after {
-        content: "\e901";
-        font-size: 40px;
-        font-family: "e-sb-icons";
+
+    .e-btn {
+        margin-left: 4px;
     }
-    .mobile .income:after {
-        content: "\e902";
-        font-size: 40px;
-        font-family: "e-sb-icons";
+
+    .e-card .e-card-content {
+        padding-top: 0px;
     }
-    .mobile .transaction:after {
-        content: "\e903";
-        font-size: 40px;
-        font-family: "e-sb-icons";
+
+    #date_label {
+        display: block;
+        width: 248px;
+        color: rgba(0, 0, 0, 0.58);
+        margin-left: 5px;
     }
-    .e-control.e-lib.e-dashboardlayout.e-responsive {
-        z-index: 0;
+
+    .control_wrapper {
+        max-width: 500px;
+        margin: auto;
+        border: 1px solid #dddddd;
+        border-radius: 3px;
     }
-	.e-dashboardlayout.e-control .e-panel .e-panel-container .e-grid.sf-grid .e-gridcontent .e-content.e-yscroll {
-		overflow: auto;
-	}
-	body.tailwind-dark .e-dashboardlayout.e-control .e-panel {
-		border: 1px #435266 solid;
-	}
-	.e-gridheader {
-		padding-right: 0px !important;
-	}
+
+    #calender-control {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #display_date {
+        max-width: 300px;
+        margin: 0 auto;
+        padding-top: 10px;
+        color: rgba(0, 0, 0, 0.8);
+    }
 </style>
+    @code{
+    List<TreeItem> TreeDataSource = new List<TreeItem>();
+    
+    int HorizontalSpacing = 20;
+    int VerticalSpacing = 20;
+    public PageOrientation orientation = PageOrientation.Landscape;
+    public BoundaryConstraints boundaryConstraints = BoundaryConstraints.Page;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        TreeDataSource.Add(new TreeItem
+        {
+            NodeId = "01",
+            NodeText = "Local Disk (C:)",
+            Expanded = true,
+            Child = new List<TreeItem>()
+        {
+                new TreeItem { NodeId = "01-01", NodeText = "Program Files",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "01-01-01", NodeText = "Windows NT" },
+                        new TreeItem { NodeId = "01-01-02", NodeText = "Windows Mail" },
+                        new TreeItem { NodeId = "01-01-03", NodeText = "Windows Photo Viewer" }
+                    },
+                },
+                new TreeItem { NodeId = "01-02", NodeText = "Users", Expanded = true,
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "01-02-01", NodeText = "Smith" },
+                        new TreeItem { NodeId = "01-02-02", NodeText = "Public" },
+                        new TreeItem { NodeId = "01-02-03", NodeText = "Admin" },
+                    },
+                },
+                new TreeItem { NodeId = "01-03", NodeText = "Windows",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "01-03-01", NodeText = "Boot" },
+                        new TreeItem { NodeId = "01-03-02", NodeText = "FileManager" },
+                        new TreeItem { NodeId = "01-03-03", NodeText = "System32" },
+                    }
+                },
+            },
+        });
+        TreeDataSource.Add(new TreeItem
+        {
+            NodeId = "02",
+            NodeText = "Local Disk (D:)",
+            Child = new List<TreeItem>()
+        {
+                new TreeItem { NodeId = "02-01", NodeText = "Personals",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "02-01-01", NodeText = "My photo.png" },
+                        new TreeItem { NodeId = "02-01-02", NodeText = "Rental document.docx" },
+                        new TreeItem { NodeId = "02-01-03", NodeText = "Pay slip.pdf" },
+                    },
+                },
+                new TreeItem { NodeId = "02-02", NodeText = "Projects",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "02-02-01", NodeText = "ASP Application " },
+                        new TreeItem { NodeId = "02-02-02", NodeText = "TypeScript Application" },
+                        new TreeItem { NodeId = "02-02-03", NodeText = "React Application" },
+                    }
+                },
+                new TreeItem { NodeId = "02-03", NodeText = "Office",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "02-03-01", NodeText = "Work details.docx " },
+                        new TreeItem { NodeId = "02-03-02", NodeText = "Weekly report.docx" },
+                        new TreeItem { NodeId = "02-03-03", NodeText = "Wish list.csv" },
+                    }
+                },
+            },
+        });
+        TreeDataSource.Add(new TreeItem
+        {
+            NodeId = "03",
+            NodeText = "Local Disk (E:)",
+            Child = new List<TreeItem>()
+        {
+                new TreeItem { NodeId = "03-01", NodeText = "Pictures",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "03-01-01", NodeText = "Wind.jpg " },
+                        new TreeItem { NodeId = "03-01-02", NodeText = "Stone.jpg" },
+                        new TreeItem { NodeId = "03-01-03", NodeText = "Home.jpg" },
+                    }
+                },
+                new TreeItem { NodeId = "03-02", NodeText = "Documents", Icon = "docx",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "03-02-01", NodeText = "Environment Pollution.docx " },
+                        new TreeItem { NodeId = "03-02-02", NodeText = "Global Warming.ppt" },
+                        new TreeItem { NodeId = "03-02-03", NodeText = "Social Network.pdf" },
+                    },
+                },
+                new TreeItem { NodeId = "03-03", NodeText = "Study Materials",
+                    Child = new List<TreeItem>()
+                {
+                        new TreeItem { NodeId = "03-03-01", NodeText = "UI-Guide.pdf" },
+                        new TreeItem { NodeId = "03-03-02", NodeText = "Tutorials.zip" },
+                        new TreeItem { NodeId = "03-03-03", NodeText = "TypeScript.7z" },
+                    }
+                },
+            },
+        });
+
+        
+    }
+    class TreeItem
+    {
+        public string NodeId { get; set; }
+        public string NodeText { get; set; }
+        public string Icon { get; set; }
+        public bool Expanded { get; set; }
+        public bool Selected { get; set; }
+        public List<TreeItem> Child { get; set; }
+    }
+    public DateTime? DropVal { get; set; } = DateTime.Now;
+    public string[] ShapePropertyPath = { "continent" };
+    public string ShapeDataPath = "Continent";
+    public class MapDataSource
+    {
+        public string Continent { get; set; }
+        public string Color { get; set; }
+    };
+    public List<MapDataSource> MapsLayerDataSource = new List<MapDataSource> {
+        new MapDataSource { Continent="North America", Color="#71B081" },
+        new MapDataSource { Continent="South America", Color="#5A9A77" },
+        new MapDataSource { Continent="Africa", Color="#498770" },
+        new MapDataSource { Continent="Europe", Color="#39776C" },
+        new MapDataSource { Continent="Asia", Color="#266665" },
+        new MapDataSource { Continent="Australia", Color="#124F5E" }
+    };
+    public class MapMarkerDataSource
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+    };
+    public List<MapMarkerDataSource> MarkerDataSource = new List<MapMarkerDataSource> {
+        new MapMarkerDataSource{ Latitude=37.6276571, Longitude=-122.4276688, Name="San Bruno", Country="United States" },
+        new MapMarkerDataSource{ Latitude=33.5302186, Longitude=-117.7418381, Name="Laguna Niguel", Country="United States" },
+        new MapMarkerDataSource{ Latitude=40.7424509, Longitude=-74.0081468, Name="New York", Country="United States" },
+        new MapMarkerDataSource{ Latitude=-23.5268201, Longitude=-46.6489927, Name="Bom Retiro", Country="Brazil" },
+        new MapMarkerDataSource{ Latitude=43.6533855, Longitude=-79.3729994, Name="Toronto", Country="Canada" },
+        new MapMarkerDataSource{ Latitude=48.8773406, Longitude=2.3299627, Name="Paris", Country="‎France" },
+        new MapMarkerDataSource{ Latitude=52.4643089, Longitude=13.4107368, Name="Berlin", Country="Germany" },
+        new MapMarkerDataSource{ Latitude=19.1555762, Longitude=72.8849595, Name="Mumbai", Country="India" },
+        new MapMarkerDataSource{ Latitude=35.6628744, Longitude=139.7345469, Name="Minato", Country="Japan" },
+        new MapMarkerDataSource{ Latitude=51.5326602, Longitude=-0.1262422, Name="London", Country="England" }
+    };
+
+    //public System.Type model = typeof(Node);
+    /*
+    public class Node
+    {
+        public string Id { get; set; }
+        public double Width { get; set; }
+    }
+    */
+    DiagramObjectCollection<Connector> Connectors = new DiagramObjectCollection<Connector>();
+    //ObservableCollection<DiagramConnector> Connectors = new ObservableCollection<DiagramConnector>()
+
+    Connector Connector1 = new Connector()
+        { 
+            ID = "connector1",
+            SourceID="node1",
+            TargetID="node2"
+        };
+    Connector Connector2 = new Connector()
+        { 
+            ID = "connector2",
+            SourceID="node1",
+            TargetID="node3"
+        };
+    Connector Connector3 = new Connector()
+        { 
+            ID = "connector3",
+            SourceID="node1",
+            TargetID="node4"
+        };
+    Connector Connector4 = new Connector()
+        { 
+            ID = "connector4",
+            SourceID="node1",
+            TargetID="node5"
+        };
+
+    DiagramObjectCollection<Node> nodes = new DiagramObjectCollection<Node>();
+
+    Syncfusion.Blazor.Diagram.Node node1 = new Node()
+        {
+            ID = "node1",
+            //Size of the node
+            Height = 400,
+            Width = 400,
+            //Position of the node
+            OffsetX = 400,
+            OffsetY = 100,
+            //sets the type of the shape as HTML
+            Shape = new ImageShape()
+            {
+                Type = NodeShapes.Image,
+                Source = "https://www.jitterbit.com/app/uploads/2021/04/ERP-blog-header-2.jpg",
+
+            }
+        };
+    Syncfusion.Blazor.Diagram.Node node2 = new Node()
+        {
+            ID = "node2",
+            //Size of the node
+            Height = 300,
+            Width = 300,
+            //Position of the node
+            OffsetX = 400,
+            OffsetY = 100,
+            //sets the type of the shape as HTML
+            Shape = new Shape()
+            {
+                Type = NodeShapes.HTML,
+            }
+        };
+    Syncfusion.Blazor.Diagram.Node node3 = new Node()
+        {
+            ID = "node3",
+            //Size of the node
+            Height = 350,
+            Width = 350,
+            //Position of the node
+            OffsetX = 400,
+            OffsetY = 100,
+            //sets the type of the shape as HTML
+            Shape = new Shape()
+            {
+                Type = NodeShapes.HTML,
+            }
+        };
+    Syncfusion.Blazor.Diagram.Node node4 = new Node()
+        {
+            ID = "node4",
+            //Size of the node
+            Height = 300,
+            Width = 300,
+            //Position of the node
+            OffsetX = 400,
+            OffsetY = 100,
+            //sets the type of the shape as HTML
+            Shape = new Shape()
+            {
+                Type = NodeShapes.HTML,
+            }
+        };
+    Syncfusion.Blazor.Diagram.Node node5 = new Node()
+        {
+            ID = "node5",
+            //Size of the node
+            Height = 400,
+            Width = 750,
+            //Position of the node
+            OffsetX = 400,
+            OffsetY = 100,
+            //sets the type of the shape as HTML
+            Shape = new Shape()
+            {
+                Type = NodeShapes.HTML,
+            }
+        };
+
+}

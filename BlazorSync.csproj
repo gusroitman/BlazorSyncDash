@@ -13,8 +13,12 @@
   
   <ItemGroup>
       <PackageReference Include="Syncfusion.Blazor.Charts" Version="20.4.0.41" />
+      <PackageReference Include="Syncfusion.Blazor.CircularGauge" Version="20.4.0.42" />
+      <PackageReference Include="Syncfusion.Blazor.Diagram" Version="20.4.0.41" />
+      <PackageReference Include="Syncfusion.Blazor.Kanban" Version="20.4.0.41" />
       <PackageReference Include="Syncfusion.Blazor.Layouts" Version="20.4.0.41" />
     <PackageReference Include="Syncfusion.Blazor.Cards" Version="20.4.0.41" />
+    <PackageReference Include="Syncfusion.Blazor.Maps" Version="20.4.0.42" />
     <PackageReference Include="Syncfusion.Blazor.Navigations" Version="20.4.0.41" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.41" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.41" />

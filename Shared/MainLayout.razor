@@ -2,7 +2,7 @@
 @inject IJSRuntime JS
 @using Syncfusion.Blazor.Navigations
 <PageTitle>BlazorSync</PageTitle>
-<SfSidebar ID="Sidebar" Type="SidebarType.Push" Width="300px" DockSize="65px" EnableDock="true" @ref="Sidebar" @bind-IsOpen="SidebarToggle">
+<SfSidebar ID="Sidebar" Type="SidebarType.Push" Width="300px" DockSize="65px" EnableDock="true" @ref="Sidebar" @bind-IsOpen="SidebarToggle" EnableGestures="false">
     <div class="sidebar" style="position:fixed;z-index:1200">
         <div class="topnav navbar navbar-dark">
             <button class="navbar-toggler" @onclick="ToggleNavMenu" />

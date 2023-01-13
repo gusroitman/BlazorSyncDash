@@ -1,0 +1,230 @@
+﻿@page "/dashboard4"
+
+@using Syncfusion.Blazor.CircularGauge
+@using Syncfusion.Blazor.Layouts
+@using Syncfusion.Blazor.Kanban
+
+<div class="control-section">
+	<SfDashboardLayout @ref="dashboardObject" Columns="8" CellSpacing="@Spacing" CellAspectRatio="@Ratio" AllowDragging="false" AllowResizing="false" AllowFloating="false" MediaQuery="max-width:700px">
+		<DashboardLayoutPanels>
+			<DashboardLayoutPanel Column="0" Row="0" SizeX="5" SizeY="5">
+				<ContentTemplate>
+                    <div class="root-container" style="overflow:auto;width:100%;height:100%;margin:auto;">
+                    <SfKanban TValue="TasksModel" KeyField="Status" DataSource="Tasks" Width="auto" Height="auto">
+                    <KanbanColumns>
+                        <KanbanColumn HeaderText="Planned" KeyField="@(new List<string>() {"Open"})"></KanbanColumn>
+                        <KanbanColumn HeaderText="In Progress" KeyField="@(new List<string>() {"InProgress"})"></KanbanColumn>
+                        <KanbanColumn HeaderText="Done" KeyField="@(new List<string>() {"Close"})"></KanbanColumn>
+                    </KanbanColumns>
+                    <KanbanCardSettings HeaderField="Id" ContentField="Summary" FooterCssField="ClassName" GrabberField="Color"></KanbanCardSettings>
+                    </SfKanban>
+                    </div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="5" Row="0" SizeX="3" SizeY="5">
+				<ContentTemplate>
+					<div class="root-container" style="overflow:auto;width:100%;height:100%;margin:auto;">
+                        <SfCircularGauge Width="100%" Height="100%">
+                        <CircularGaugeAxes>
+                            <CircularGaugeAxis StartAngle="210" EndAngle="150" Minimum="0" Maximum="120" Radius="80%">
+                                <CircularGaugeAxisLineStyle Width="10" Color="transparent">
+                                </CircularGaugeAxisLineStyle>
+                                <CircularGaugeAxisLabelStyle UseRangeColor="false">
+                                    <CircularGaugeAxisLabelFont Size="12px" FontFamily="Roboto" FontStyle="Regular">
+                                    </CircularGaugeAxisLabelFont>
+                                </CircularGaugeAxisLabelStyle>
+                                <CircularGaugeAxisMajorTicks Height="10" Offset="5" UseRangeColor="false">
+                                </CircularGaugeAxisMajorTicks>
+                                <CircularGaugeAxisMinorTicks Height="0" Width="0" UseRangeColor="false">
+                                </CircularGaugeAxisMinorTicks>
+                                <CircularGaugeAnnotations>
+                                    <CircularGaugeAnnotation Radius="30%" Angle="0" ZIndex="1" Content="Speedometer">
+                                        <ContentTemplate>
+                                            <div><span style="font-size:14px; color:#9E9E9E; font-family:Regular; margin-left: -33px">Speedometer</span></div>
+                                        </ContentTemplate>
+                                    </CircularGaugeAnnotation>
+                                    <CircularGaugeAnnotation Radius="40%" Angle="180" ZIndex="1" Content="65 MPH">
+                                        <ContentTemplate>
+                                            <div><span style="font-size:20px; color:#424242; font-family:Regular; margin-left: -33px">65 MPH</span></div>
+                                        </ContentTemplate>
+                                    </CircularGaugeAnnotation>
+                                </CircularGaugeAnnotations>
+                                <CircularGaugeRanges>
+                                    <CircularGaugeRange Start="0" End="40" Color="#30B32D" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                    <CircularGaugeRange Start="40" End="80" Color="#FFDD00" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                    <CircularGaugeRange Start="80" End="120" Color="#F03E3E" StartWidth="10" EndWidth="10" RoundedCornerRadius="0">
+                                    </CircularGaugeRange>
+                                </CircularGaugeRanges>
+                                <CircularGaugePointers>
+                                    <CircularGaugePointer Value="65" Radius="60%" PointerWidth="8">
+                                        <CircularGaugePointerAnimation Enable="true"></CircularGaugePointerAnimation>
+                                        <CircularGaugeCap Radius="7">
+                                        </CircularGaugeCap>
+                                        <CircularGaugeNeedleTail Length="18%">
+                                        </CircularGaugeNeedleTail>
+                                    </CircularGaugePointer>
+                                </CircularGaugePointers>
+                            </CircularGaugeAxis>
+                        </CircularGaugeAxes>
+                    </SfCircularGauge>
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="0" Row="5" SizeX="2" SizeY="1">
+				<ContentTemplate>
+					<div class="root-container" style="overflow:auto;">
+
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="2" Row="5" SizeX="2" SizeY="1">
+				<ContentTemplate>
+					<div class="root-container" style="overflow:auto;">
+
+					</div>
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+			<DashboardLayoutPanel Column="2" Row="5" SizeX="2" SizeY="1">
+				<HeaderTemplate>
+					<span class="title">Total Expenses</span>
+				</HeaderTemplate>
+				<ContentTemplate>
+
+				</ContentTemplate>
+			</DashboardLayoutPanel>
+		</DashboardLayoutPanels>
+	</SfDashboardLayout>
+</div>
+<style>
+    .e-kanban .e-card .e-card-footer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .e-kanban .e-card .e-card-footer > div:last-child {
+        margin-left: auto;
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 16px;
+        width: 16px;
+        margin-right: 8px;
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-improvement {
+        background-image: url(https://syncfusion.atlassian.net/secure/viewavatar?size=medium&avatarId=15507&avatarType=issuetype);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-story {
+        background-image: url(https://syncfusion.atlassian.net/secure/viewavatar?size=medium&avatarId=15515&avatarType=issuetype);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-bug {
+        background-image: url(https://syncfusion.atlassian.net/secure/viewavatar?size=medium&avatarId=15503&avatarType=issuetype);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-others {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/issuetypes/documentation.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-low {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/priorities/trivial.svg);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-high {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/priorities/major.svg);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-critical {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/priorities/critical.svg);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-release {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/priorities/critical.svg);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-normal {
+        background-image: url(https://syncfusion.atlassian.net/images/icons/priorities/minor.svg);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-nancy {
+        background-image: url(https://ej2.syncfusion.com/demos/src/kanban/images/Nancy%20Davloio.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-andrew {
+        background-image: url(https://ej2.syncfusion.com/demos/src/kanban/images/Andrew%20Fuller.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-janet {
+        background-image: url(https://ej2.syncfusion.com/demos/src/kanban/images/Janet%20Leverling.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-steven {
+        background-image: url(https://ej2.syncfusion.com/demos/src/kanban/images/Steven%20walker.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-robert {
+        background-image: url(https://ej2.syncfusion.com/demos/src/kanban/images/Robert%20King.png);
+    }
+
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-nancy,
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-andrew,
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-janet,
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-steven,
+    .e-kanban .e-card .e-card-footer .e-card-footer-css.e-robert {
+        border-radius: 72px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+@code {
+    SfDashboardLayout? dashboardObject;
+
+    private double[] Spacing = new double[] { 15, 15 };
+	private double Ratio = 200 / 100;
+
+    public class TasksModel
+    {
+        public string Id { get; set; }
+        public int ListId { get; set; }
+        public string Title { get; set; }
+        public string Status { get; set; }
+        public string Summary { get; set; }
+        public string Type { get; set; }
+        public string Priority { get; set; }
+        public List<string> CardTags { get; set; }
+        public string Tags { get; set; }
+        public double Estimate { get; set; }
+        public string Assignee { get; set; }
+        public int RankId { get; set; }
+        public string Color { get; set; }
+        public string Value { get; set; }
+        public string OrderID { get; set; }
+        public string Size { get; set; }
+        public string ImageURL { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public string Price { get; set; }
+        public string AssigneeKey { get; set; }
+        public List<string> ClassName { get; set; }
+    }
+
+    public List<TasksModel> Tasks = new List<TasksModel>()
+        {
+            new TasksModel { Id = "Task 1", Title = "Task  - 29001", Status = "Open", Summary = "Analyze the new requirements gathered from the customer.", Type = "Story", Priority = "Low", CardTags = new List<string>() { "Analyze", "Customer" }, Estimate = 3.5, Assignee = "Nancy Davloio", AssigneeKey = "Nancy Davloio", RankId = 1, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-nancy" } },
+            new TasksModel { Id = "Task 2", Title = "Task  - 29002", Status = "InProgress", Summary = "Improve application performance", Type = "Improvement", Priority = "Normal", CardTags = new List<string>() { "Improvement" }, Estimate = 6, Assignee = "Andrew Fuller", AssigneeKey = "Andrew Fuller", RankId = 1, Color = "#7d7297", ClassName = new List<string>() { "e-improvement", "e-normal", "e-andrew" } },
+            new TasksModel { Id = "Task 3", Title = "Task  - 29003", Status = "Open", Summary = "Arrange a web meeting with the customer to get new requirements.", Type = "Others", Priority = "Critical", CardTags = new List<string>() { "Meeting" }, Estimate = 5.5, Assignee = "Janet Leverling", AssigneeKey = "Janet Leverling", RankId = 2, Color = "#27AE60", ClassName = new List<string>() { "e-others", "e-critical", "e-janet" } },
+            new TasksModel { Id = "Task 4", Title = "Task  - 29004", Status = "InProgress", Summary = "Fix the issues reported in the IE browser.", Type = "Bug", Priority = "Release Breaker", CardTags = new List<string>() { "IE" }, Estimate = 2.5, Assignee = "Janet Leverling", AssigneeKey = "Janet Leverling", RankId = 2, Color = "#cc0000", ClassName = new List<string>() { "e-bug", "e-release", "e-janet" } },
+            new TasksModel { Id = "Task 5", Title = "Task  - 29005", Status = "Review", Summary = "Fix the issues reported by the customer.", Type = "Bug", Priority = "Low", CardTags = new List<string>() { "Customer" }, Estimate = 3.5, Assignee = "Steven walker", AssigneeKey = "Steven walker", RankId = 1, Color = "#cc0000", ClassName = new List<string>() { "e-bug", "e-low", "e-steven" } },
+            new TasksModel { Id = "Task 6", Title = "Task  - 29007", Status = "Validate", Summary = "Validate new requirements", Type = "Improvement", Priority = "Low", CardTags = new List<string>() { "Validation" }, Estimate = 1.5, Assignee = "Robert King", AssigneeKey = "Robert King", RankId = 1, Color = "#7d7297", ClassName = new List<string>() { "e-improvement", "e-low", "e-robert" } },
+            new TasksModel { Id = "Task 7", Title = "Task  - 29009", Status = "Review", Summary = "Fix the issues reported in Safari browser.", Type = "Bug", Priority = "Release Breaker", CardTags = new List<string>() { "Fix", "Safari" }, Estimate = 1.5, Assignee = "Nancy Davloio", AssigneeKey = "Nancy Davloio", RankId = 2, Color = "#cc0000", ClassName = new List<string>() { "e-bug", "e-release", "e-nancy" } },
+            new TasksModel { Id = "Task 8", Title = "Task  - 29010", Status = "Close", Summary = "Test the application in the IE browser.", Type = "Story", Priority = "Low", CardTags = new List<string>() { "Review", "IE" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 3, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-Margaret" } },
+            new TasksModel { Id = "Task 9", Title = "Task  - 29011", Status = "Validate", Summary = "Validate the issues reported by the customer.", Type = "Story", Priority = "High", CardTags = new List<string>() { "Validation", "Fix" }, Estimate = 1, Assignee = "Steven walker", AssigneeKey = "Steven walker", RankId = 1, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-nancy" } },
+            new TasksModel { Id = "Task 10", Title = "Task  - 29015", Status = "Open", Summary = "Show the retrieved data from the server in grid control.", Type = "Story", Priority = "High", CardTags = new List<string>() { "Database", "SQL" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 4, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-high", "e-steven" } }
+    };
+}
