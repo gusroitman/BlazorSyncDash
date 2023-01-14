@@ -3,11 +3,17 @@
 @using Syncfusion.Blazor.CircularGauge
 @using Syncfusion.Blazor.Layouts
 @using Syncfusion.Blazor.Kanban
+@using Syncfusion.Blazor.LinearGauge
+
+<h5>Dashboard Layout Example 4 - Kanban type application inside a Dashboard layout Control.</h5>
+<h6>Splitted screen. 2 columns diferent widths. Also in this page examples of Kaban style app and Circular and Linear Gauge charts</h6>
+<h6>Kanban: You can drag and drop tasks in different columns and also double click on a task lets you edit it.</h6>
+<br/>
 
 <div class="control-section">
 	<SfDashboardLayout @ref="dashboardObject" Columns="8" CellSpacing="@Spacing" CellAspectRatio="@Ratio" AllowDragging="false" AllowResizing="false" AllowFloating="false" MediaQuery="max-width:700px">
 		<DashboardLayoutPanels>
-			<DashboardLayoutPanel Column="0" Row="0" SizeX="5" SizeY="5">
+			<DashboardLayoutPanel Column="0" Row="0" SizeX="5" SizeY="7">
 				<ContentTemplate>
                     <div class="root-container" style="overflow:auto;width:100%;height:100%;margin:auto;">
                     <SfKanban TValue="TasksModel" KeyField="Status" DataSource="Tasks" Width="auto" Height="auto">
@@ -72,26 +78,36 @@
 					</div>
 				</ContentTemplate>
 			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="0" Row="5" SizeX="2" SizeY="1">
+            <DashboardLayoutPanel Column="5" Row="5" SizeX="3" SizeY="2">
 				<ContentTemplate>
-					<div class="root-container" style="overflow:auto;">
-
+					<div class="root-container" style="overflow:auto;width:100%;height:100%;margin:auto;">
+                        <SfLinearGauge Height="180px" Width="550px" Orientation="Syncfusion.Blazor.LinearGauge.Orientation.Horizontal" Background="transparent">
+                            <LinearGaugeContainer Width="13" RoundedCornerRadius="5" Type="ContainerType.Thermometer">
+                            <LinearGaugeContainerBorder Width="1"></LinearGaugeContainerBorder>
+                            <LinearGaugeAxes>
+                                <LinearGaugeAxis Minimum="0" Maximum="180">
+                                <LinearGaugeLine Width="0" />
+                                <LinearGaugeMajorTicks Color="#9e9e9e" Interval="20" Height="20" />
+                                <LinearGaugeMinorTicks Color="#9e9e9e" Interval="10" Height="10" />
+                                <LinearGaugeAxisLabelStyle>
+                                    <LinearGaugeAxisLabelFont FontFamily="inherit"></LinearGaugeAxisLabelFont>
+                                </LinearGaugeAxisLabelStyle>
+                                <LinearGaugePointers>
+                                    <LinearGaugePointer PointerValue="90" Height="13" Width="13" Type="Point.Bar" Color="#f02828" />
+                                </LinearGaugePointers>
+                            </LinearGaugeAxis>
+                            <LinearGaugeAxis Minimum="0" Maximum="180" OpposedPosition="true">
+                                <LinearGaugeLine Width="0" />
+                                <LinearGaugeMajorTicks Color="#9e9e9e" Interval="20" Height="20" />
+                                <LinearGaugeMinorTicks Color="#9e9e9e" Interval="10" Height="10" />
+                                <LinearGaugePointers>
+                                    <LinearGaugePointer Width="0" />
+                                </LinearGaugePointers>
+                            </LinearGaugeAxis>
+                            </LinearGaugeAxes>
+                            </LinearGaugeContainer>
+                        </SfLinearGauge>
 					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="2" Row="5" SizeX="2" SizeY="1">
-				<ContentTemplate>
-					<div class="root-container" style="overflow:auto;">
-
-					</div>
-				</ContentTemplate>
-			</DashboardLayoutPanel>
-			<DashboardLayoutPanel Column="2" Row="5" SizeX="2" SizeY="1">
-				<HeaderTemplate>
-					<span class="title">Total Expenses</span>
-				</HeaderTemplate>
-				<ContentTemplate>
-
 				</ContentTemplate>
 			</DashboardLayoutPanel>
 		</DashboardLayoutPanels>
@@ -225,6 +241,8 @@
             new TasksModel { Id = "Task 7", Title = "Task  - 29009", Status = "Review", Summary = "Fix the issues reported in Safari browser.", Type = "Bug", Priority = "Release Breaker", CardTags = new List<string>() { "Fix", "Safari" }, Estimate = 1.5, Assignee = "Nancy Davloio", AssigneeKey = "Nancy Davloio", RankId = 2, Color = "#cc0000", ClassName = new List<string>() { "e-bug", "e-release", "e-nancy" } },
             new TasksModel { Id = "Task 8", Title = "Task  - 29010", Status = "Close", Summary = "Test the application in the IE browser.", Type = "Story", Priority = "Low", CardTags = new List<string>() { "Review", "IE" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 3, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-Margaret" } },
             new TasksModel { Id = "Task 9", Title = "Task  - 29011", Status = "Validate", Summary = "Validate the issues reported by the customer.", Type = "Story", Priority = "High", CardTags = new List<string>() { "Validation", "Fix" }, Estimate = 1, Assignee = "Steven walker", AssigneeKey = "Steven walker", RankId = 1, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-nancy" } },
-            new TasksModel { Id = "Task 10", Title = "Task  - 29015", Status = "Open", Summary = "Show the retrieved data from the server in grid control.", Type = "Story", Priority = "High", CardTags = new List<string>() { "Database", "SQL" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 4, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-high", "e-steven" } }
+            new TasksModel { Id = "Task 10", Title = "Task  - 29015", Status = "Open", Summary = "Show the retrieved data from the server in grid control.", Type = "Story", Priority = "High", CardTags = new List<string>() { "Database", "SQL" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 4, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-high", "e-steven" } },
+            new TasksModel { Id = "Task 11", Title = "Task  - 29016", Status = "Review", Summary = "Benchmark test in Safari browser.", Type = "Bug", Priority = "Release Breaker", CardTags = new List<string>() { "Benchmark", "Safari" }, Estimate = 1.5, Assignee = "Nancy Davloio", AssigneeKey = "Nancy Davloio", RankId = 2, Color = "#cc0000", ClassName = new List<string>() { "e-bug", "e-release", "e-nancy" } },
+            new TasksModel { Id = "Task 12", Title = "Task  - 29017", Status = "Close", Summary = "Test the connectivity in the IE browser.", Type = "Story", Priority = "Low", CardTags = new List<string>() { "Review", "IE" }, Estimate = 5.5, Assignee = "Margaret hamilt", AssigneeKey = "Margaret hamilt", RankId = 3, Color = "#8b447a", ClassName = new List<string>() { "e-story", "e-low", "e-Margaret" } }
     };
 }
