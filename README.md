@@ -74,17 +74,17 @@ var app = builder.Build();
 
 #### Some screenshots :
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img1.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img1.png)
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img2.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img2.png)
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img3.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img3.png)
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img4.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img4.png)
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img5.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img5.png)
 
-![This is an image](https://github.com/gusroitman/Blazor-Charts-Examples/blob/master/BlazorSyncDash/wwwroot/images/img6.png)
+![This is an image](https://github.com/gusroitman/BlazorSyncDash/blob/master/wwwroot/images/img6.png)
 
 
 If you have any questions feel free to ask. :right_anger_bubble:
