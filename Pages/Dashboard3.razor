@@ -313,13 +313,13 @@
         public string Color { get; set; }
         public string Manager { get; set; }
         public string ChartType { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } 
         public string Imageurl { get; set; }
-    }
+    } 
     //DataSource Items.
     public List<OrganizationalDetails> DataSource = new List<OrganizationalDetails>()
     {
-        new OrganizationalDetails() { Id= "parent", Role= "CEO", Color = "#71AF17", Manager = "", ChartType = "", Name="Liam James", Imageurl="/images/image34.png" },
+        new OrganizationalDetails() { Id= "parent", Role= "CEO", Color = "#71AF17", Manager = "", ChartType = "", Name="Gustavo Roitman", Imageurl="/images/gus1.jpg" },
         new OrganizationalDetails() { Id = "2", Role= "Product Manager", Color = "#1859B7", Manager =  "parent", ChartType = "right", Name="Maria Andres", Imageurl="/images/image30.png"},
         new OrganizationalDetails() { Id = "3", Role= "Software Engineer", Color = "#2E95D8", Manager = "2", ChartType ="", Name="John Steel", Imageurl="/images/image3.png"},
         new OrganizationalDetails() { Id = "4", Role= "Software Engineer", Color =  "#2E95D8", Manager =  "2",ChartType = "", Name="Carlos Nagy", Imageurl="/images/image5.png"},
@@ -425,7 +425,7 @@
         .e-orgchart-template-image-style {
             width: 44px;
             height: 42px;
-            left: 12px;
+            left: 14px;
             right: 12px;
             /* top: 154px; */
             float: left;
@@ -591,7 +591,7 @@
             width: 181px;
             height: 54px;
             position: absolute;
-            left: 0px;
+            left: 3px;
             top: 0px;
             border: 1px solid #9B9B9B;
             box-sizing: border-box;
